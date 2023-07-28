@@ -1,0 +1,134 @@
+Cleaning & Preparing the Ships Data before importing into Tableau 
+
+Converted the ships.csv to Excel workbook
+	Tableau does not accept CSV files but accepts Excel files.
+Created a table in Excel with headers.
+"Â" was present in every cell at the end of every word.
+To remove all instances of this I used the replace function to find Â throughout my Excel file & replace it with a space. 
+	This process cleaned up my sheet and made the words more uniform & recognizable.
+A significant amount of ships did not have the launch year data available. 
+I excluded it from the analysis & visualization so it doesn't skew results.
+
+
+Cleaning & Preparing the Facilities Data before importing into Tableau 
+
+Converted the facilities.csv to Excel workbook
+	Tableau does not accept CSV files but accepts Excel files.
+Created a table in Excel with headers.
+"Â" was present in every cell at the end of every word.
+To remove all instances of this I used the replace function to find Â throughout my Excel file & replace it with a space. 
+	This process cleaned up my sheet and made the words more uniform & recognizable.
+In my 'type' column i had different variables like Airfield, Army Base, Factory but i had some types that were multiple
+which makes sense because some facilities were used for multiple purposes. For example, I had 2 Army Base, Prison Camp in the US,
+also 3 Factory, Shipyard in the US. I could have created separate or temporary columns before importing them to Tableau.
+Decided to leave it as is and visualize the Facilities that served several purposes.
+
+
+
+Cleaning & Preparing the Events Data before importing into Tableau 
+
+Converted the events.csv to Excel workbook
+	Tableau does not accept CSV files but accepts Excel files.
+Created a table in Excel with headers.
+"Â" was present in every cell at the end of every word.
+To remove all instances of this I used the replace function to find Â throughout my Excel file & replace it with a space. 
+	This process cleaned up my sheet and made the words more uniform & recognizable.
+Upon inspection of the dataset, I realized the Dates in my 'Date" column were not uniform.
+Because some events took place in one day i had 2 variations of how dates were presented.
+	I had dates like this: 16-Apr-22 & like this: 21 Jan 1930 - 22 Apr 1930
+To create a uniform data structure, I decided to divide the columns using the "Text to Columns" feature in Excel.
+I decided to use "fixed width" to create a break line in my column to separate the starting date from the end date.
+So instead of 21 Jan 1930 - 22 Apr 1930 in one cell in my previous example after using the "Text to Columns" feature 
+It created two columns with 21 Jan 1930 in the first column and - 22 Apr 1930.
+For the cells with one date, it will put the date in the first column.
+So now i have two columns which i titled Original Date & Last Date.
+The dates in the last date column now have an extra hyphen in front of the date.
+	Dates in my 'Last Date' column look like this now: - 22 Apr 1930
+To remove this hyphen i had to use an Excel formula: =IF(LEFT(F2,1)="-", MID(F2, 3, LEN(F2)), D2)
+This formula checks if the first character in the cell is a hyphen. If it is, it starts from the 3rd character 
+(excluding the hyphen and the space after it) and takes the rest of the string using the MID and LEN functions.
+After doing this my dates were clean and uniform.
+I also had some empty cells because of the "Text to Columns" feature I had the 'Last Date' empty for some that had only 1 date initially.
+To fix this i issue I used this formula: =IF(ISBLANK(j2), i2, j2)
+This formula checks if j2 is blank. If it is, it returns the value of i2. If it's not, it returns the value of j2.
+I changed the format of the cells to date, to match the '21 Jan 1930' format I already had.
+I also created a new column name 'Length' to calculate the length of an event.
+As you can guess I got the length of an event by subtracting the 'Original Date' from the 'Last Date'.
+In Excel this formula is simply =(j2-i2). This game me the length of each event.
+	I didn't end up visualizing Lenght but I have the information if I ever need to use it in the future.
+
+
+
+
+Cleaning & Preparing the Weapons Data before importing into Tableau 
+
+Converted the weapons.csv to Excel workbook
+	Tableau does not accept CSV files but accepts Excel files.
+Created a table in Excel with headers.
+"Â" was present in every cell at the end of every word.
+To remove all instances of this I used the replace function to find Â throughout my Excel file & replace it with a space. 
+	This process cleaned up my sheet and made the words more uniform & recognizable.
+
+
+Cleaning & Preparing the Vehicles Data before importing into Tableau 
+
+Converted the vehicles.csv to an Excel workbook
+	Tableau does not accept CSV files but accepts Excel files.
+Created a table in Excel with headers.
+"Â" was present in every cell at the end of every word.
+To remove all instances of this I used the replace function to find Â throughout my Excel file & replace it with a space. 
+	This process cleaned up my sheet and made the words more uniform & recognizable.
+
+
+Cleaning & Preparing the Books Data before importing it into Tableau 
+
+Converted the books.csv to Excel workbook
+	Tableau does not accept CSV files but accepts Excel files.
+Created a table in Excel with headers.
+"Â" was present in every cell at the end of every word.
+To remove all instances of this I used the replace function to find Â throughout my Excel file & replace it with a space. 
+	This process cleaned up my sheet and made the words more uniform & recognizable.
+I used the 'TRIM' function to remove leading and trailing spaces because we were dealing with authors' & reviewers' names which need to be specific.
+The formula in Excel to trim is simply =TRIM(C2)
+I wanted to visualize people who wrote & reviewed more than 2 books involving world war II.
+So i used conditional formatting to highlight cells with the Duplicated Values.
+Then I filtered by the color these cells were highlighted in.
+This allowed me to view only the names which repeated more than once.
+Then i sorted in descending order to see the names.
+Doing this I noticed some names were repeated with different variations and would therefore be stored as two different people.
+For example: Gordon Rottman in one cell & Gordon L. Rottman in another
+This is the same man but in Tableau they will be visualized as two different people.
+So to change this I changed all instances of Gordon Rottman to Gordon L. Rottman to accurately represent this data.
+
+
+Cleaning & Preparing the Books Aircraft before importing into Tableau 
+
+Converted the aircraft.csv to an Excel workbook
+	Tableau does not accept CSV files but accepts Excel files.
+Created a table in Excel with headers.
+"Â" was present in every cell at the end of every word.
+To remove all instances of this I used the replace function to find Â throughout my Excel file & replace it with a space. 
+	This process cleaned up my sheet and made the words more uniform & recognizable.
+
+
+These were files that had no place to join them as all files were different.
+I imported to Tableau separately & without joining them.
+
+
+The link to the Final Visualization is right here: https://public.tableau.com/app/profile/odefe.oberabor/viz/WorldWarII/Dashboard1?publish=yes
+Link to my Tableau Page: https://public.tableau.com/app/profile/odefe.oberabor
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
